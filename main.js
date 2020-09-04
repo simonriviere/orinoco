@@ -1,14 +1,32 @@
-var http = require("http");
 
-http.createServer(function (request, response) {
-   // Send the HTTP header 
-   // HTTP Status: 200 : OK
-   // Content Type: text/plain
-   response.writeHead(200, {'Content-Type': 'text/plain'});
+var request = new XMLHttpRequest();
+let response  = ''
+const newElt = document.createElement("div");
+newElt.classList.add("row")
+let elt = document.querySelector("main"); 
+elt.appendChild(newElt)
    
-   // Send the response body as "Hello World"
-   response.end('Hello World\n');
-}).listen(3000);
+request.onreadystatechange = function(e) {
+   if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
+      response = JSON.parse(this.responseText);  
+   }
+   for(let i = 0; i < response.length ; i++){
+      console.log(response[i])
+      document.querySelector('main > div').innerHTML +=  // Ajout de la card contenant le produit            
+         ` <div class="col col-lg-3 mt-3 mb-3">
+            <div class="card">
+            <img src="` + response[i].imageUrl + `" alt="image de certificat" class="card-img-top" width="50" heigth="50">
+            <div class="card-body">
+               <div class="text-center">
+               <h3> ` + response[i].name +` </h3>
+                  <a href="#" class="btn btn-primary ">Description</a>
+               </div>            
+            </div>
+            </div>
+         </div>`;
 
-// Console will print the message
-console.log('Server running at http://127.0.0.1:3000/');
+   }
+};
+request.open("GET", "http://localhost:3000/api/furniture");
+request.send();
+
