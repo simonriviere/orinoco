@@ -29,7 +29,7 @@ const getUsers = async function () {
                  </select>
              </h4>
          </form>
-                <a href="#" class="btn btn-primary ">Commander</a>
+                <a href="#" class="btn btn-primary ">Ajouter au panier</a>
              </div>            
           </div>
           </div>
