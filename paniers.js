@@ -1,14 +1,27 @@
-     console.log(localStorage.getItem('name'))
+var produitAjoute = localStorage.getItem('name')
+console.log(produitAjoute)
+for(let i=0 ; i < produitAjoute.length ; i++ ){
+  const newElt = document.createElement("div");
+newElt.classList.add('produit')
+let elt = document.querySelector(".cart-tablebody");
+elt.appendChild(newElt)
+let produits= document.querySelector('.produit' );
+produits.textContent = localStorage.getItem('name') 
+}
+/*      console.log(localStorage.getItem('name'))
              //création d'une balise div de class row
-    const newElt = document.createElement("div");
-    newElt.classList.add('test')
-    let elt = document.querySelector("#cart-tablebody");
-    elt.appendChild(newElt)
-    let test= document.querySelector('.test ' );
-    test.innerHTML = localStorage.getItem('name')
-    
-    
-    
+
+      const newElt = document.createElement("div");
+newElt.classList.add('produit')
+let elt = document.querySelector(".cart-tablebody");
+elt.appendChild(newElt)
+let produits= document.querySelector('.produit' );
+produits.textContent = localStorage.getItem('name') */
+
+
+
+
+
     /*La fonction principale de ce script est d'empêcher l'envoi du formulaire si un champ a été mal rempli
              *et d'appliquer les styles de validation aux différents éléments de formulaire*/
 /*             (function() {

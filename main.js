@@ -17,30 +17,39 @@ const getUsers = async function () {
          const newProduit = document.createElement('div');
          newProduit.classList.add('col-12', 'col-md-4', 'mt-3', 'mb-3', 'produits')
          let produits = document.querySelector('.produit > div');
-         produits.appendChild(newProduit);
-
+         
          const newCard = document.createElement('div');
-         newCard.classList.add('card')
-         let cards = document.querySelector('.produits');
-         cards.appendChild(newCard);
-      
+         newCard.classList.add('card','text-center')
+
          //insertion de l'image
          const newImage = document.createElement('img');
          newImage.classList.add( "card-img-top")
          newImage.setAttribute('src',articles[i].imageUrl)
-         let images = document.querySelector('.card')
-         images.appendChild(newImage);
+         
          
          //creation card-body
          const newCardBdy = document.createElement('div');
          newCardBdy.classList.add('card-body')
-         let cardBody = document.querySelector('.card');
-         cardBody.appendChild(newCardBdy);
+         
+
          //création du titre
          const newTitres = document.createElement('h3');
-         let newTitre = document.querySelector('.card-body');
-         newTitre.appendChild(newTitres);
-         newTitres.innerHTML = articles[i].name ;
+         newTitres.textContent= articles[i].name ;
+
+         //création du bouton description
+         const descriptions = document.createElement('a');
+         descriptions.setAttribute('href', 'pages/produit.html?_id='+articles[i]._id)
+         descriptions.setAttribute('role','button')
+         descriptions.classList.add('btn', 'btn-primary', 'btnLien', 'ml-4', 'mr-4','mb-2')
+         descriptions.textContent = 'Description';
+
+         //appendChild
+         produits.appendChild(newProduit);
+         newProduit.appendChild(newCard);
+         newCard.appendChild(newCardBdy);
+         newCard.appendChild(newImage);
+         newCard.appendChild(newTitres);
+         newCard.appendChild(descriptions);
    /*       produits.innerHTML +=  // Ajout des card contenant le produit
             ` <div class="col-12 col-md-4  mt-3 mb-3 produits">
                    <div class="card">
