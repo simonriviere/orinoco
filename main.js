@@ -13,8 +13,35 @@ const getUsers = async function () {
 
       //création des cards contenant les articles
       for (let i = 0; i < articles.length; i++) {
-         let differentsProduits = document.querySelector('.produit > div');
-         differentsProduits.innerHTML +=  // Ajout des card contenant le produit
+         //creation de la div et de ses class
+         const newProduit = document.createElement('div');
+         newProduit.classList.add('col-12', 'col-md-4', 'mt-3', 'mb-3', 'produits')
+         let produits = document.querySelector('.produit > div');
+         produits.appendChild(newProduit);
+
+         const newCard = document.createElement('div');
+         newCard.classList.add('card')
+         let cards = document.querySelector('.produits');
+         cards.appendChild(newCard);
+      
+         //insertion de l'image
+         const newImage = document.createElement('img');
+         newImage.classList.add( "card-img-top")
+         newImage.setAttribute('src',articles[i].imageUrl)
+         let images = document.querySelector('.card')
+         images.appendChild(newImage);
+         
+         //creation card-body
+         const newCardBdy = document.createElement('div');
+         newCardBdy.classList.add('card-body')
+         let cardBody = document.querySelector('.card');
+         cardBody.appendChild(newCardBdy);
+         //création du titre
+         const newTitres = document.createElement('h3');
+         let newTitre = document.querySelector('.card-body');
+         newTitre.appendChild(newTitres);
+         newTitres.innerHTML = articles[i].name ;
+   /*       produits.innerHTML +=  // Ajout des card contenant le produit
             ` <div class="col-12 col-md-4  mt-3 mb-3 produits">
                    <div class="card">
                    <img src="` + articles[i].imageUrl + `" alt="image de certificat" class="card-img-top">
@@ -25,7 +52,7 @@ const getUsers = async function () {
                       </div>
                    </div>
                    </div>
-                </div>`;
+                </div>`; */
 
       };
 

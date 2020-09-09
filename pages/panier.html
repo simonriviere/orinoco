@@ -38,6 +38,8 @@
             </div>
         </header>
     </div>
+
+    <div id="test"></div>
     <main class="paniers">
     <div class="container">
         <div class="row">
@@ -45,8 +47,20 @@
                 <h1> Votre panier</h1> 
             </div>
         </div>
-        <div class="row">
-            <div class="col col-lg-4">   
+        
+         <table class="table">
+            <thead>
+                <tr><th>Article</th><th>Prix</th><th>Quantité</th></tr>
+            </thead>
+            <tbody id="article"></tbody> <tbody id="prix"></tbody> <tbody id="qte"></tbody>
+        </table>
+        
+        <p>Sous total : <span class="subtotal"></span>€</p> 
+        
+        <button id="confirm-command">Passer la commande</button>
+
+<!--         <div class="row">
+            <div class="col">   
                 <div class="card text-center">
                     <h2>ARTICLE</h2>
                     <div class="row align-items-center">
@@ -57,24 +71,26 @@
                     </div>
                 </div>        
             </div>
-            <div class="col-lg-4">
+            <div class="col">
                 <div class="card text-center">
                     <h2>QTÉ</h2>
                     <div class="card-body">
-                        <div class="qte"></div>
+                        <div class="qte">
+                 
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-lg-4 text-center">
+            <div class="col text-center">
                 <div class="card">
                     <h2>PRIX</h2>
                     <div class="card-body">
-                        <div class="qte">,00 €</div>
+                        <div class="prix">,00 €</div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>  
+        </div> 
+    </div>   -->
+
     <div class="container mt-5  text-center">
         <h2>Vos informations</h2>
             <form class="needs-validation" novalidate>
