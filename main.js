@@ -69,7 +69,6 @@ const getUsers = async function () {
       let detail = document.querySelectorAll('.btnLien'); // on récupère tout les éléments de class .btnLien
       for (let i = 0; i < detail.length; i++) { // on créer une boucle qui parcours la variable que l'on vient de créer 
             detail[i].addEventListener("click", function (event) { // quand on clique sur la description d'un article ça stock ces informations dans localstorage
-            console.log(articles[i].varnish)
             localStorage.setItem('name', articles[i].name)
             localStorage.setItem('_id', articles[i]._id )
             localStorage.setItem('price',articles[i].price)

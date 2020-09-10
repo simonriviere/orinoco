@@ -6,12 +6,14 @@ let imageUrl = localStorage.getItem('imageUrl')
 let varnish = localStorage.getItem('varnish').split(',')
   */
 // Requete get
+
+
 const getUsers = async function () {
    let params = new URLSearchParams(document.location.search.substring(1));
    let id = params.get('_id')
    let response = await fetch('http://localhost:3000/api/furniture/' + id)
    let article = await response.json()
-   console.log(article.name)
+
    //Ajout d'une balise div de class row
    const newElt = document.createElement("div");
    newElt.classList.add("row", "justify-content-center")
@@ -47,9 +49,10 @@ const getUsers = async function () {
    //ajout du prix
    const newPrix = document.createElement('p');
    newPrix.textContent = "Prix : " + article.price / 100 + ",00 €"
-   console.log(article.varnish)
+ 
 
    //choix de l'essence
+   let choixVarnish = ''
    const newEssence = document.createElement('select')
    newEssence.setAttribute('name', 'varnish')
    newEssence.classList.add('mb-4')
@@ -59,10 +62,10 @@ const getUsers = async function () {
    newOption0.textContent = 'Choisir une couleur de vernis'
    newEssence.appendChild(newOption0)
    for (let i = 0; i < article.varnish.length; i++) {
-      const newOption1 = document.createElement('option')
-      newOption1.setAttribute("value", article.varnish[i])
-      newOption1.textContent = article.varnish[i]
-      newEssence.appendChild(newOption1)
+      const newOption1 = document.createElement('option');
+      newOption1.setAttribute("value", article.varnish[i]);
+      newOption1.textContent = article.varnish[i];
+      newEssence.appendChild(newOption1);
    }
 
    //ajout au panier
@@ -85,25 +88,65 @@ const getUsers = async function () {
 
    //Comportement au clique sur 'ajouter au panier'
    let ajoutArticle = document.querySelector('.btnAjout');
-   ajoutArticle.addEventListener('click', function () {
-      var selectElmt = document.getElementById("couleurVernis");
-      var valeurselectionnee = selectElmt.options[selectElmt.selectedIndex].value;
-      if (valeurselectionnee != 1) {
-         alert('Votre article est ajouté au panier')
+
+  
+
+ajoutArticle.addEventListener('click', function () {   
+   
+   let selectElmt = document.getElementById("couleurVernis");
+   let valeurSelectionnee = valeurSelectionee = selectElmt.options[selectElmt.selectedIndex].value;   
+   if (valeurSelectionnee != 1) {   
+
+      if(JSON.parse(localStorage.getItem('commande')) === null ){   
+         
+         alert('Votre article est ajouté au panier');
+         let a = []
+         a.push({
+            '_id' : article._id, 
+            'name' : article.name,
+            'price': article.price,
+            'description' : article.description,
+            'imageUrl': article.imageUrl,
+          
+         });
+         localStorage.setItem("commande", JSON.stringify(a)); 
+         
+         }else{
+        
+            let commandes = JSON.parse(localStorage.getItem('commande'))
+            a = commandes
+            alert('Votre article est ajouté au panier');
+            a.push({
+               '_id' : article._id, 
+               'name' : article.name,
+               'price': article.price,
+               'description' : article.description,
+               'imageUrl': article.imageUrl,
+               'varnish' : article.varnish
+            });
+            localStorage.setItem("commande", JSON.stringify(commandes)); 
+         }
+      }else{
+            alert('Il faut choisir un vernis')   
+      } 
+   })
+}  
+
+           
+       /* 
          localStorage.setItem('name', article.name)
          localStorage.setItem('_id', JSON.stringify(article._id))
-         
          localStorage.setItem('price', article.price)
          localStorage.setItem('description', article.description)
          localStorage.setItem('imageUrl', article.imageUrl)
-         localStorage.setItem('varnish', article.varnish)
-      } else {
-         alert('Il faut choisir un vernis')
-      }
-   })
-}
+         localStorage.setItem('varnish', article.varnish)  */
+     
+ 
+
 
 getUsers()
+
+/**/
 /* if (response.ok) {
    let data = await response.json()
     let detailsProduit = document.querySelector('main').innerHTML +=           
