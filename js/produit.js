@@ -98,8 +98,6 @@ ajoutArticle.addEventListener('click', function () {
    if (valeurSelectionnee != 1) {   
 
       if(JSON.parse(localStorage.getItem('commande')) === null ){   
-         
-         alert('Votre article est ajouté au panier');
          let a = []
          a.push({
             '_id' : article._id, 
@@ -107,16 +105,13 @@ ajoutArticle.addEventListener('click', function () {
             'price': article.price,
             'description' : article.description,
             'imageUrl': article.imageUrl,
-          
          });
          localStorage.setItem("commande", JSON.stringify(a)); 
-         
+         alert('Votre article est ajouté au panier');
          }else{
         
             let commandes = JSON.parse(localStorage.getItem('commande'))
-            a = commandes
-            alert('Votre article est ajouté au panier');
-            a.push({
+            commandes.push({
                '_id' : article._id, 
                'name' : article.name,
                'price': article.price,
@@ -124,7 +119,8 @@ ajoutArticle.addEventListener('click', function () {
                'imageUrl': article.imageUrl,
                'varnish' : article.varnish
             });
-            localStorage.setItem("commande", JSON.stringify(commandes)); 
+            localStorage.setItem("commande", JSON.stringify(commandes));  
+            alert('Votre article est ajouté au panier');
          }
       }else{
             alert('Il faut choisir un vernis')   

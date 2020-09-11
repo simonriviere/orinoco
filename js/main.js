@@ -1,6 +1,6 @@
 
 // Requete get
-const getUsers = async function () {
+const getIndex = async function () {
    let response = await fetch('http://localhost:3000/api/furniture/')
    if (response.ok) {
       let articles = await response.json()
@@ -84,7 +84,7 @@ const getUsers = async function () {
       console.error('Retour du server : ', response.status)
    }
 }
-getUsers()
+getIndex()
     
          
 /*Solution avec XMLHttp
