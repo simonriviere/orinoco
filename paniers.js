@@ -95,38 +95,55 @@
     newCard2.appendChild(newTitreTotal);
     newCard2.appendChild(newPrixTotal);
 
-  }
+  };
   //envoie des informations
-/*   class contact: {
-    *   firstName: string,
-    *   lastName: string,
-    *   address: string,
-    *   city: string,
-    *   email: string
-    * }
-    * products: [string] <-- array of product _id
-    *
+
+
+
+  
+  
+//    products: [string] <-- array of product _id
+  
   let envoi = document.querySelector('.envoyer')
-  let contact
+
+class contact {
+        constructor(firstName, lastName, address, city, email){
+          this.firstName = firstName;
+          this.lastName = lastName;
+          this.address = address;
+          this.city =city;
+          this.email = email
+        }
+      } 
 
   envoi.addEventListener('click',function(e){
-    const insertPost = async function(data){
-      let response = await fetch('http://localhost:3000/api/furniture/order',{
-       method : 'POST',
+  e.preventDefault();
+  let  lastName = document.getElementById('lastName').value;
+  let firstName = document.getElementById('firstName').value;
+  let address = document.getElementById('address').value;
+  let city = document.getElementById('city').value;
+  let email = document.getElementById('email').value;
+  let utilisateur = new contact(firstName, lastName, address, city, email)
+
+
+
+   const insertPost = async function(data){
+      
+    let response =  await fetch('http://localhost:3000/api/furniture/order',{
+      method : 'POST',
       header : {  
-          'Content-Type': 'application/json' 
+        'Content-Type': 'application/json'     
       },
       body : JSON.stringify(data)
-      })
-      let responseData = await response.json()
-
-  }
-  
-  insertPost({
-      name :'jean',
-      age : 29
   })
-/* 
-localStorage.clear() 
-   })  */
-  
+  let responseData = await response.json()
+  if (response.ok){
+      console.log(responseData)
+      }else{}
+   }  
+   console.log(utilisateur)
+  insertPost(utilisateur) 
+
+}) 
+//localStorage.clear()  
+    

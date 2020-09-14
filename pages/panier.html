@@ -59,49 +59,45 @@
  -->
  <div class="container mt-5  text-center">
     <h2>Vos informations</h2>
-    <form id="contact">
+    <form method="post" id="contact">
         <div class="form-group">
             <div class="row">
                 <div class="col-lg col-md-4 mb-3">
-                    <label for="prenom">Votre Prénom</label>
-                    <input type="text" class="form-control" >
+                    <label for="lastName">Votre Prénom</label>
+                    <input type="text" id='lastName' class="form-control" value="" >
       
                 </div>
                 <div class="col-lg col-md-4 mb-3">
                     <label for="nom">Votre Nom</label>
-                    <input type="text" class="form-control"  >
+                    <input type="text" id="firstName" value="" class="form-control"  >
             
                 </div>
                 <div class="col-lg col-md-4 mb-3">
                     <label for="email">Votre email</label>
-                    <input type="email" class="form-control"  >
+                    <input type="email" id="email" value="" class="form-control"  >
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-lg col-md-6 mb-3">
                 <label for="adresse">Adresse</label>
-                <input type="text" class="form-control" >
+                <input type="text" id="address" value="" class="form-control" >
        
             </div>
             <div class="col-lg col-md-6 mb-3">
                 <label for="ville">Ville</label>
-                <input type="text" class="form-control"  >
+                <input type="text" id="city" value="" class="form-control"  >
             </div>
         </div>
-        <div class="row ">
-            <div class="col-lg col-md-3 mb-3">
-                <label for="pays">Pays</label>
-                <input type="text" >
-            </div>
-            <div class="col-lg col-md-3 mb-3">
-                <label for="cp">Code postal</label>
-                <input type="number" <>
-  !-- required -->
-            </div>
+   <!-- required -->      
+
         </div>
-    
-        <button class="btn btn-primary envoyer" type="submit">Envoyer</button>
+    <div class="row text-center">
+        <div class="col">
+            <button class="btn btn-primary order-submit envoyer" type="submit">Envoyer</button>
+        </div>
+    </div>
+       
     </form>
 </div> 
      </main> 
