@@ -109,7 +109,7 @@ ajoutArticle.addEventListener('click', function () {
          localStorage.setItem("commande", JSON.stringify(a)); 
          let b = []
          b.push(
-            article._id, 
+            {'product _id' :article._id} 
          );
          localStorage.setItem("products", JSON.stringify(b)); 
          alert('Votre article est ajouté au panier');
@@ -129,7 +129,7 @@ ajoutArticle.addEventListener('click', function () {
 
             let products = JSON.parse(localStorage.getItem('products'))
             products.push(
-               article._id
+               {'product _id' :article._id}
             );
             localStorage.setItem("products", JSON.stringify(products)); 
             alert('Votre article est ajouté au panier');

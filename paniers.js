@@ -125,25 +125,42 @@ class contacts {
   let address = document.getElementById('address').value;
   let city = document.getElementById('city').value;
   let email = document.getElementById('email').value;
-  let contact = new contacts(firstName, lastName, address, city, email);
-
+  let body = {
+  contact : {
+    firstName : firstName,
+    lastName : lastName,
+    address : address,
+    city : city,
+    email : email
+  },
+  products : products
+}
 
    const orderFurniture = async function(){
-      
+
     let response =  await fetch('http://localhost:3000/api/furniture/order',{
       method : 'POST',
       header : {  
         'Content-Type': 'application/json'     
       },
-      body : JSON.stringify({contact, products})
+      body : JSON.stringify(body)
+      
   })
+
+  console.log(body.contact)
+   console.log(body.contact.firstName )
+    console.log(body.contact.lastName)
+    console.log (body.contact.address)
+    console.log(body.contact.city)
+    console.log(body.contact.email)
+    console.log(body.products)
+  
   let responseData = await response.json()
   if (response.ok){
       console.log(orderId)
       }else{}
    }  
-console.log(contact.firstName)   
-console.log(products)
+
 
   orderFurniture()
 
