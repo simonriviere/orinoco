@@ -1,7 +1,7 @@
 
 //récupération du localStorage de la page description
   let commandes= JSON.parse(localStorage.getItem('commande')); 
-
+let products = JSON.parse(localStorage.getItem('products'))
 //Si la variables constante est null, il s'affiche un message panier vide
   if(commandes == null){ 
     let panierVide = document.querySelector('.panierVide')
@@ -61,6 +61,8 @@
     //calcule du total
     sum+= parseInt(commandes[i].price / 100, 10)
     localStorage.setItem('totalPrix', sum)
+
+
   }
     //insertion du prix total dans une div
     //Ajout d'une balise div de class row
@@ -102,11 +104,11 @@
 
   
   
-//    products: [string] <-- array of product _id
+//    
   
   let envoi = document.querySelector('.envoyer')
 
-class contact {
+class contacts {
         constructor(firstName, lastName, address, city, email){
           this.firstName = firstName;
           this.lastName = lastName;
@@ -123,26 +125,27 @@ class contact {
   let address = document.getElementById('address').value;
   let city = document.getElementById('city').value;
   let email = document.getElementById('email').value;
-  let utilisateur = new contact(firstName, lastName, address, city, email)
+  let contact = new contacts(firstName, lastName, address, city, email);
 
 
-
-   const insertPost = async function(data){
+   const orderFurniture = async function(){
       
     let response =  await fetch('http://localhost:3000/api/furniture/order',{
       method : 'POST',
       header : {  
         'Content-Type': 'application/json'     
       },
-      body : JSON.stringify(data)
+      body : JSON.stringify({contact, products})
   })
   let responseData = await response.json()
   if (response.ok){
-      console.log(responseData)
+      console.log(orderId)
       }else{}
    }  
-   console.log(utilisateur)
-  insertPost(utilisateur) 
+console.log(contact.firstName)   
+console.log(products)
+
+  orderFurniture()
 
 }) 
 //localStorage.clear()  

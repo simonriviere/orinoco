@@ -107,7 +107,13 @@ ajoutArticle.addEventListener('click', function () {
             'imageUrl': article.imageUrl,
          });
          localStorage.setItem("commande", JSON.stringify(a)); 
+         let b = []
+         b.push(
+            article._id, 
+         );
+         localStorage.setItem("products", JSON.stringify(b)); 
          alert('Votre article est ajouté au panier');
+
          }else{
         
             let commandes = JSON.parse(localStorage.getItem('commande'))
@@ -120,6 +126,12 @@ ajoutArticle.addEventListener('click', function () {
                'varnish' : article.varnish
             });
             localStorage.setItem("commande", JSON.stringify(commandes));  
+
+            let products = JSON.parse(localStorage.getItem('products'))
+            products.push(
+               article._id
+            );
+            localStorage.setItem("products", JSON.stringify(products)); 
             alert('Votre article est ajouté au panier');
          }
       }else{
