@@ -97,8 +97,18 @@
 
   }
   //envoie des informations
+/*   class contact: {
+    *   firstName: string,
+    *   lastName: string,
+    *   address: string,
+    *   city: string,
+    *   email: string
+    * }
+    * products: [string] <-- array of product _id
+    *
   let envoi = document.querySelector('.envoyer')
   let contact
+
   envoi.addEventListener('click',function(e){
     const insertPost = async function(data){
       let response = await fetch('http://localhost:3000/api/furniture/order',{
@@ -109,16 +119,14 @@
       body : JSON.stringify(data)
       })
       let responseData = await response.json()
-      if (response.ok){
-          console.log(responseData)
-          }else{}
+
   }
   
   insertPost({
       name :'jean',
       age : 29
   })
-
+/* 
 localStorage.clear() 
-   }) 
+   })  */
   
