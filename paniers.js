@@ -1,7 +1,8 @@
 
 //récupération du localStorage de la page description
   let commandes= JSON.parse(localStorage.getItem('commande')); 
-let products = JSON.parse(localStorage.getItem('products'))
+  let products = JSON.parse(localStorage.getItem('products'))
+  
 //Si la variables constante est null, il s'affiche un message panier vide
   if(commandes == null){ 
     let panierVide = document.querySelector('.panierVide')
@@ -60,7 +61,7 @@ let products = JSON.parse(localStorage.getItem('products'))
 
     //calcule du total
     sum+= parseInt(commandes[i].price / 100, 10)
-    localStorage.setItem('totalPrix', sum)
+   
 
 
   }
@@ -90,6 +91,7 @@ let products = JSON.parse(localStorage.getItem('products'))
     const newPrixTotal = document.createElement('h4');
     newPrixTotal.classList.add('pb-3');
     newPrixTotal.textContent = sum + ',00 €'; 
+    localStorage.setItem('totalPrix', sum)
 
     newPara.appendChild(newTotal);
     newTotal.appendChild(newCard2);
@@ -98,72 +100,60 @@ let products = JSON.parse(localStorage.getItem('products'))
     newCard2.appendChild(newPrixTotal);
 
   };
-  //envoie des informations
 
 
+  //vérifications des informations du formulaire
+  let form = document.getElementsByTagName('form')[0];
+  let mail = document.getElementById("email");
+  let error = document.querySelector('error');
 
-  
-  
-//    
-  
   let envoi = document.querySelector('.envoyer')
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    if (!email.validity.valid){
+      error.textContent="Format de l'adresse e-mail invalide";
+      error.className = "error active"
+      e.preventDefault();
+    } 
+    // si le formulaire est bien remplit
+    else{   
 
-class contacts {
-        constructor(firstName, lastName, address, city, email){
-          this.firstName = firstName;
-          this.lastName = lastName;
-          this.address = address;
-          this.city =city;
-          this.email = email
-        }
-      } 
+      //récupération des valeurs du formulaire
+        let lastName = document.getElementById('lastName').value;
+        let firstName = document.getElementById('firstName').value;
+        let address = document.getElementById('address').value;
+        let city = document.getElementById('city').value;
+        let email = document.getElementById('email').value;
 
-  envoi.addEventListener('click',function(e){
-  e.preventDefault();
-  let  lastName = document.getElementById('lastName').value;
-  let firstName = document.getElementById('firstName').value;
-  let address = document.getElementById('address').value;
-  let city = document.getElementById('city').value;
-  let email = document.getElementById('email').value;
-  let body = {
-  contact : {
-    firstName : firstName,
-    lastName : lastName,
-    address : address,
-    city : city,
-    email : email
-  },
-  products : products
-}
+  //création de l'objet utilisé pour le POST         
+        let contain = {
+          contact : {firstName : firstName,
+          lastName : lastName,
+          address : address,
+          city : city,
+          email : email,},
+          products : products
+        } ;
+        let commande = JSON.stringify(contain)
 
-   const orderFurniture = async function(){
+  //création de la méthode post une fois le formulaire bien remplit
 
-    let response =  await fetch('http://localhost:3000/api/furniture/order',{
-      method : 'POST',
-      header : {  
-        'Content-Type': 'application/json'     
-      },
-      body : JSON.stringify(body)
-      
-  })
-
-  console.log(body.contact)
-   console.log(body.contact.firstName )
-    console.log(body.contact.lastName)
-    console.log (body.contact.address)
-    console.log(body.contact.city)
-    console.log(body.contact.email)
-    console.log(body.products)
-  
-  let responseData = await response.json()
-  if (response.ok){
-      console.log(orderId)
-      }else{}
-   }  
-
-
-  orderFurniture()
-
+        let request = new XMLHttpRequest();
+          request.onreadystatechange = function(){
+            if(this.readyState == XMLHttpRequest.DONE && this.status == 201){
+            let response= JSON.parse(this.responseText);
+            sessionStorage.setItem('recap', JSON.stringify(response)); 
+            sessionStorage.setItem('prix', localStorage.getItem('totalPrix'))
+            window.location.href= "resume.html";
+            localStorage.clear() 
+          }
+        };
+        request.open("post","http://localhost:3000/api/furniture/order");
+        request.setRequestHeader('Content-Type', 'application/json');
+        request.send(commande);
+       
+    } 
+   
 }) 
-//localStorage.clear()  
-    
+
+  
