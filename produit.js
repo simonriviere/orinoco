@@ -1,12 +1,3 @@
-/*  let name = localStorage.getItem('name')
-let _id = localStorage.getItem('_id')
-let price = localStorage.getItem('price')
-let description = localStorage.getItem('description')
-let imageUrl = localStorage.getItem('imageUrl')
-let varnish = localStorage.getItem('varnish').split(',')
-  */
-// Requete get
-
 
 const produit = async function () {
    let params = new URLSearchParams(document.location.search.substring(1));
@@ -99,12 +90,14 @@ ajoutArticle.addEventListener('click', function () {
 
       if(JSON.parse(localStorage.getItem('commande')) === null ){   
          let a = []
+         let qty = 1
          a.push({
             '_id' : article._id, 
             'name' : article.name,
             'price': article.price,
             'description' : article.description,
             'imageUrl': article.imageUrl,
+          
          });
          localStorage.setItem("commande", JSON.stringify(a)); 
          let b = []
@@ -113,27 +106,26 @@ ajoutArticle.addEventListener('click', function () {
          );
          localStorage.setItem("products", JSON.stringify(b)); 
          alert('Votre article est ajouté au panier');
-
+       
          }else{
-        
             let commandes = JSON.parse(localStorage.getItem('commande'))
-            commandes.push({
-               '_id' : article._id, 
-               'name' : article.name,
-               'price': article.price,
-               'description' : article.description,
-               'imageUrl': article.imageUrl,
-               'varnish' : article.varnish
-            });
-            localStorage.setItem("commande", JSON.stringify(commandes));  
+               commandes.push({
+                  '_id' : article._id, 
+                  'name' : article.name,
+                  'price': article.price,
+                  'description' : article.description,
+                  'imageUrl': article.imageUrl,
+                  'varnish' : article.varnish
+               });
+               localStorage.setItem("commande", JSON.stringify(commandes));  
 
-            let products = JSON.parse(localStorage.getItem('products'))
-            products.push(
-                article._id
-            );
-            localStorage.setItem("products", JSON.stringify(products)); 
-            alert('Votre article est ajouté au panier');
-         }
+               let products = JSON.parse(localStorage.getItem('products'))
+               products.push(
+                  article._id
+               );
+               localStorage.setItem("products", JSON.stringify(products)); 
+               alert('Votre article est ajouté au panier');
+            }
       }else{
             alert('Il faut choisir un vernis')   
       } 

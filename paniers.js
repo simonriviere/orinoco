@@ -104,26 +104,109 @@
 
   //vérifications des informations du formulaire
   let form = document.getElementsByTagName('form')[0];
-  let mail = document.getElementById("email");
-  let error = document.querySelector('error');
+  //Récupération du prénom
+  let formValid = document.getElementById('envoyer');
+  let prenom = document.getElementById('lastName');
+  let missPrenom = document.getElementById('missPrenom')
+  let prenomValid =/^[a-zA-ZéèîïÉÈÎÏ][a-zéèêàçîï]+([-'\s][a-zA-ZéèîïÉÈÎÏ][a-zéèêàçîï]+)?$/;
+  //Récupération du nom
+  let nom = document.getElementById('firstName');
+  let missNom = document.getElementById('missNom')
+  let nomValid =/^[a-zA-ZéèîïÉÈÎÏ][a-zéèêàçîï]+([-'\s][a-zA-ZéèîïÉÈÎÏ][a-zéèêàçîï]+)?$/;
+  //Récupération de l'email
+  let mail = document.getElementById('mail');
+  let missMail = document.getElementById('missMail')
+  let mailValid = /^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([_\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})$/
+  //récupération de l'adress
+  let address = document.getElementById('address');
+  let missAddress = document.getElementById('missAddress');
+  let addressValid =/[0-9a-zA-Z]{1,3}[a-z ,.'-]+$/;
+  //Récupération de la ville
+  let city = document.getElementById('firstName');
+  let missCity= document.getElementById('missNom');
+  let cityValid =/^[a-zA-ZéèîïÉÈÎÏ][a-zéèêàçîï]+([-'\s][a-zA-ZéèîïÉÈÎÏ][a-zéèêàçîï]+)?$/;
 
-  let envoi = document.querySelector('.envoyer')
+  formValid.addEventListener('click', validation);
+    function validation(event){
+      //vérification du prénom
+      if (prenom.validity.valueMissing){
+      event.preventDefault();
+      missPrenom.textContent = 'Prénom manquant';
+      missPrenom.style.color = 'red';
+    //Si le format de données est incorrect
+      }else if (prenomValid.test(prenom.value) == false){
+      event.preventDefault();
+      missPrenom.textContent = 'Format incorrect';
+      missPrenom.style.color = 'orange';
+      }
+      // vérification du nom 
+      else if(nom.validity.valueMissing){
+        event.preventDefault();
+        missNom.textContent = 'Nom manquant';
+        missNom.style.color = 'red';
+      //Si le format de données est incorrect
+      }else if (nomValid.test(nom.value) == false){
+        event.preventDefault();
+        missNom.textContent = 'Format incorrect';
+        missNom.style.color = 'orange';
+        }
+      //vérification de l'email
+      else if(mail.validity.valueMissing){
+        event.preventDefault();
+        missMail.textContent = 'Mail manquant';
+        missMail.style.color = 'red';
+      //Si le format de données est incorrect
+      }else if (mailValid.test(mail.value) == false){
+        event.preventDefault();
+        missMail.textContent = 'Format incorrect';
+        missMail.style.color = 'orange';
+        }
+
+      //vérification de l'adresse
+      else if(address.validity.valueMissing){
+        event.preventDefault();
+        missAddress.textContent = 'Adresse manquante';
+        missAddress.style.color = 'red';
+      //Si le format de données est incorrect
+      }else if (addressValid.test(address.value) == false){
+        event.preventDefault();
+        missAddress.textContent = 'Format incorrect';
+        missAddress.style.color = 'orange';
+        }
+        else{}
+      }
+
   form.addEventListener("submit", function(e){
+
+    let lastName = document.getElementById('lastName').value;
+    let firstName = document.getElementById('firstName').value;
+    let address = document.getElementById('address').value;
+    let city = document.getElementById('city').value;
+    let email = document.getElementById('mail').value;
+
+    
     e.preventDefault();
-    if (!email.validity.valid){
-      error.textContent="Format de l'adresse e-mail invalide";
-      error.className = "error active"
-      e.preventDefault();
+   if(products == null){
+      alert('Il faut ajouter un produit au panier pour pouvoir commander')
+      e.preventDefault
     } 
+    if(lastName ==""){
+      alert('Mettez votre Prénom');
+      name.focus();
+      return false;
+    }
+
+    else if(products == null){
+      alert('Il faut ajouter un produit au panier pour pouvoir commander')
+      e.preventDefault
+    } 
+
+
     // si le formulaire est bien remplit
     else{   
 
       //récupération des valeurs du formulaire
-        let lastName = document.getElementById('lastName').value;
-        let firstName = document.getElementById('firstName').value;
-        let address = document.getElementById('address').value;
-        let city = document.getElementById('city').value;
-        let email = document.getElementById('email').value;
+    
 
   //création de l'objet utilisé pour le POST         
         let contain = {
