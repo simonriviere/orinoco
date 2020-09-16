@@ -17,8 +17,13 @@
     elt.appendChild(newElt)
     //variable pour le total du prix
     let sum = 0 ; 
+ 
   //on regarde la longueur de l'array de commandes et on affiche les
   for(let i = 0 ; i < commandes.length; i++){
+
+if(products.indexOf(commandes[i]._id) === -1){
+  console.log('on est la')
+}else{
 
     //ajout des div pour la structure de la card
     const newProduit = document.createElement('div');
@@ -46,6 +51,10 @@
     const newDescription = document.createElement('p');
     newDescription.textContent = commandes[i].description;
 
+    //ajout du vernis
+    const newVernis = document.createElement('p');
+    newVernis.textContent = 'vernis : ' + commandes[i].varnish;
+
     //ajout du prix
     const newPrix = document.createElement('p');
     newPrix.textContent = "Prix : " + commandes[i].price / 100 + ",00 €"
@@ -57,13 +66,11 @@
     newCard.appendChild(newCardBdy);
     newCard.appendChild(newTitres);
     newCard.appendChild(newDescription);
+    newCard.appendChild(newVernis)
     newCard.appendChild(newPrix);
 
     //calcule du total
-    sum+= parseInt(commandes[i].price / 100, 10)
-   
-
-
+    sum+= parseInt(commandes[i].price / 100, 10)}
   }
     //insertion du prix total dans une div
     //Ajout d'une balise div de class row
@@ -161,7 +168,6 @@
         missMail.textContent = 'Format incorrect';
         missMail.style.color = 'orange';
         }
-
       //vérification de l'adresse
       else if(address.validity.valueMissing){
         event.preventDefault();
@@ -177,15 +183,14 @@
       }
 
   form.addEventListener("submit", function(e){
-
+    e.preventDefault();
+  //récupération des valeurs du formulaire
     let lastName = document.getElementById('lastName').value;
     let firstName = document.getElementById('firstName').value;
     let address = document.getElementById('address').value;
     let city = document.getElementById('city').value;
     let email = document.getElementById('mail').value;
 
-    
-    e.preventDefault();
    if(products == null){
       alert('Il faut ajouter un produit au panier pour pouvoir commander')
       e.preventDefault
@@ -195,19 +200,12 @@
       name.focus();
       return false;
     }
-
     else if(products == null){
       alert('Il faut ajouter un produit au panier pour pouvoir commander')
       e.preventDefault
     } 
-
-
     // si le formulaire est bien remplit
     else{   
-
-      //récupération des valeurs du formulaire
-    
-
   //création de l'objet utilisé pour le POST         
         let contain = {
           contact : {firstName : firstName,

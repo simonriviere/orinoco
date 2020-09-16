@@ -46,6 +46,7 @@ const produit = async function () {
    let choixVarnish = ''
    const newEssence = document.createElement('select')
    newEssence.setAttribute('name', 'varnish')
+   newEssence.setAttribute('label', 'vernis')
    newEssence.classList.add('mb-4')
    newEssence.setAttribute('id', 'couleurVernis')
    const newOption0 = document.createElement('option')
@@ -56,8 +57,10 @@ const produit = async function () {
       const newOption1 = document.createElement('option');
       newOption1.setAttribute("value", article.varnish[i]);
       newOption1.textContent = article.varnish[i];
-      newEssence.appendChild(newOption1);
+      newEssence.appendChild(newOption1);   
+
    }
+
 
    //ajout au panier
    const newAchat = document.createElement('button');
@@ -83,21 +86,21 @@ const produit = async function () {
   
 
 ajoutArticle.addEventListener('click', function () {   
+ 
+      let selectElmt = document.getElementById('couleurVernis')
+      let textSelectionne = selectElmt.options[selectElmt.selectedIndex].value;
    
-   let selectElmt = document.getElementById("couleurVernis");
-   let valeurSelectionnee = valeurSelectionee = selectElmt.options[selectElmt.selectedIndex].value;   
+   let valeurSelectionnee = selectElmt.options[selectElmt.selectedIndex].value;   
    if (valeurSelectionnee != 1) {   
-
       if(JSON.parse(localStorage.getItem('commande')) === null ){   
          let a = []
-         let qty = 1
          a.push({
             '_id' : article._id, 
             'name' : article.name,
             'price': article.price,
             'description' : article.description,
             'imageUrl': article.imageUrl,
-          
+            'varnish' : textSelectionne
          });
          localStorage.setItem("commande", JSON.stringify(a)); 
          let b = []
@@ -107,32 +110,38 @@ ajoutArticle.addEventListener('click', function () {
          localStorage.setItem("products", JSON.stringify(b)); 
          alert('Votre article est ajouté au panier');
        
-         }else{
-            let commandes = JSON.parse(localStorage.getItem('commande'))
-               commandes.push({
-                  '_id' : article._id, 
-                  'name' : article.name,
-                  'price': article.price,
-                  'description' : article.description,
-                  'imageUrl': article.imageUrl,
-                  'varnish' : article.varnish
-               });
-               localStorage.setItem("commande", JSON.stringify(commandes));  
-
-               let products = JSON.parse(localStorage.getItem('products'))
-               products.push(
-                  article._id
-               );
-               localStorage.setItem("products", JSON.stringify(products)); 
-               alert('Votre article est ajouté au panier');
-            }
-      }else{
-            alert('Il faut choisir un vernis')   
-      } 
-   })
+      }else{      
+         let products = JSON.parse(localStorage.getItem('products'))
+         products.push(
+            article._id
+            );    
+         localStorage.setItem("products", JSON.stringify(products)); 
+         let commandes = JSON.parse(localStorage.getItem('commande'))
+         commandes.push({
+            '_id' : article._id, 
+            'name' : article.name,
+            'price': article.price,
+            'description' : article.description,
+            'imageUrl': article.imageUrl,
+            'varnish' : textSelectionne
+            });
+            localStorage.setItem("commande", JSON.stringify(commandes)); 
+               alert('Votre article est ajouté au panier');         
+         }
+   }else{
+      alert('Il faut choisir un vernis')   
+   } 
+})   
 }  
 
  
 
 
 produit()
+/* 
+for(i=0; i<products.length; i++){
+   if(products[i] == article._id){
+     alert("L'article est déjà présent dans le panier, voulez-vous quand même l'ajouter")
+      
+   }}
+    if(choix == true){ */
