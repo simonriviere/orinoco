@@ -1,147 +1,111 @@
+let urlFurniture = 'http://localhost:3000/api/furniture/';
 
-const produit = async function () {
+const produit = async function (url) {
    let params = new URLSearchParams(document.location.search.substring(1));
    let id = params.get('_id')
-   let response = await fetch('http://localhost:3000/api/furniture/' + id)
-   let article = await response.json()
+   let response = await fetch(url + id)
+   let produit = await response.json()
+   function description(data) {
+      //Ajout d'une balise div de class row
+      const newElt = document.createElement("div");
+      newElt.classList.add("row", "justify-content-center")
+      let elt = document.querySelector("main");
+      elt.appendChild(newElt)
+      //ajout des div pour la structure de la card
+      const newProduit = document.createElement('div');
+      newProduit.classList.add('col-12', 'col-md-10', 'col-lg-7', 'mt-3', 'mb-3', 'produits')
 
-   //Ajout d'une balise div de class row
-   const newElt = document.createElement("div");
-   newElt.classList.add("row", "justify-content-center")
-   let elt = document.querySelector("main");
-   elt.appendChild(newElt)
+      const newCard = document.createElement('div');
+      newCard.classList.add('card', 'text-center')
+      //insertion de l'image
+      const newImage = document.createElement('img');
+      newImage.classList.add("card-img-top")
+      newImage.setAttribute('src', data.imageUrl)
+      //ajout de la div pour le card-body
+      const newCardBdy = document.createElement('div');
+      newCardBdy.classList.add('card-body')
+      //ajout du titre
+      const newTitres = document.createElement('h3');
+      newTitres.classList.add('mt-3')
+      newTitres.textContent = data.name;
+      //ajout de la description 
+      const newDescription = document.createElement('p');
+      newDescription.textContent = data.description;
+      //ajout du prix
+      const newPrix = document.createElement('p');
+      newPrix.textContent = "Prix : " + data.price / 100 + ",00 €"
+      //choix de l'essence
+      const newEssence = document.createElement('select')
+      newEssence.setAttribute('name', 'varnish')
+      newEssence.setAttribute('label', 'vernis')
+      newEssence.classList.add('mb-4')
+      newEssence.setAttribute('id', 'couleurVernis')
+      const newOption0 = document.createElement('option')
+      newOption0.setAttribute("value", "1")
+      newOption0.textContent = 'Choisir une couleur de vernis'
+      newEssence.appendChild(newOption0)
+      for (let i = 0; i < data.varnish.length; i++) {
+         const newOption1 = document.createElement('option');
+         newOption1.setAttribute("value", data.varnish[i]);
+         newOption1.textContent = data.varnish[i];
+         newEssence.appendChild(newOption1);
+      }
+      //ajout au panier
+      const newAchat = document.createElement('button');
+      newAchat.setAttribute('role', 'button')
+      newAchat.classList.add('btn', 'btn-primary', 'btnAjout', 'ml-4', 'mr-4', 'mb-2')
+      newAchat.textContent = 'Ajouter au panier';
 
-   //ajout des div pour la structure de la card
-   const newProduit = document.createElement('div');
-   newProduit.classList.add('col-12', 'col-md-10', 'col-lg-7', 'mt-3', 'mb-3', 'produits')
-
-   const newCard = document.createElement('div');
-   newCard.classList.add('card', 'text-center')
-
-   //insertion de l'image
-   const newImage = document.createElement('img');
-   newImage.classList.add("card-img-top")
-   newImage.setAttribute('src', article.imageUrl)
-
-
-   //ajout de la div pour le card-body
-   const newCardBdy = document.createElement('div');
-   newCardBdy.classList.add('card-body')
-
-   //ajout du titre
-   const newTitres = document.createElement('h3');
-   newTitres.classList.add('mt-3')
-   newTitres.textContent = article.name;
-
-   //ajout de la description 
-   const newDescription = document.createElement('p');
-   newDescription.textContent = article.description;
-
-   //ajout du prix
-   const newPrix = document.createElement('p');
-   newPrix.textContent = "Prix : " + article.price / 100 + ",00 €"
- 
-
-   //choix de l'essence
-   let choixVarnish = ''
-   const newEssence = document.createElement('select')
-   newEssence.setAttribute('name', 'varnish')
-   newEssence.setAttribute('label', 'vernis')
-   newEssence.classList.add('mb-4')
-   newEssence.setAttribute('id', 'couleurVernis')
-   const newOption0 = document.createElement('option')
-   newOption0.setAttribute("value", "1")
-   newOption0.textContent = 'Choisir une couleur de vernis'
-   newEssence.appendChild(newOption0)
-   for (let i = 0; i < article.varnish.length; i++) {
-      const newOption1 = document.createElement('option');
-      newOption1.setAttribute("value", article.varnish[i]);
-      newOption1.textContent = article.varnish[i];
-      newEssence.appendChild(newOption1);   
-
+      //appendChild
+      newElt.appendChild(newProduit);
+      newProduit.appendChild(newCard);
+      newCard.appendChild(newCardBdy);
+      newCard.appendChild(newImage);
+      newCard.appendChild(newTitres);
+      newCard.appendChild(newDescription);
+      newCard.appendChild(newPrix);
+      newCard.appendChild(newEssence);
+      newCard.appendChild(newAchat);
    }
+   description(produit)
+   function ajoutPanier(data) {
+      //Comportement au clique sur 'ajouter au panier'
+      let ajoutArticle = document.querySelector('.btnAjout');
+      ajoutArticle.addEventListener('click', function () {
+         let selectElmt = document.getElementById('couleurVernis')
+         let textSelectionne = selectElmt.options[selectElmt.selectedIndex].value;
 
-
-   //ajout au panier
-   const newAchat = document.createElement('button');
-   newAchat.setAttribute('role', 'button')
-   newAchat.classList.add('btn', 'btn-primary', 'btnAjout', 'ml-4', 'mr-4', 'mb-2')
-   newAchat.textContent = 'Ajouter au panier';
-
-   //appendChild
-   newElt.appendChild(newProduit);
-   newProduit.appendChild(newCard);
-   newCard.appendChild(newCardBdy);
-   newCard.appendChild(newImage);
-   newCard.appendChild(newTitres);
-   newCard.appendChild(newDescription);
-   newCard.appendChild(newPrix);
-   newCard.appendChild(newEssence);
-   newCard.appendChild(newAchat);
-
-
-   //Comportement au clique sur 'ajouter au panier'
-   let ajoutArticle = document.querySelector('.btnAjout');
-
-  
-
-ajoutArticle.addEventListener('click', function () {   
- 
-      let selectElmt = document.getElementById('couleurVernis')
-      let textSelectionne = selectElmt.options[selectElmt.selectedIndex].value;
-   
-   let valeurSelectionnee = selectElmt.options[selectElmt.selectedIndex].value;   
-   if (valeurSelectionnee != 1) {   
-      if(JSON.parse(localStorage.getItem('commande')) === null ){   
-         let a = []
-         a.push({
-            '_id' : article._id, 
-            'name' : article.name,
-            'price': article.price,
-            'description' : article.description,
-            'imageUrl': article.imageUrl,
-            'varnish' : textSelectionne
-         });
-         localStorage.setItem("commande", JSON.stringify(a)); 
-         let b = []
-         b.push(
-            article._id
-         );
-         localStorage.setItem("products", JSON.stringify(b)); 
-         alert('Votre article est ajouté au panier');
-       
-      }else{      
-         let products = JSON.parse(localStorage.getItem('products'))
-         products.push(
-            article._id
-            );    
-         localStorage.setItem("products", JSON.stringify(products)); 
-         let commandes = JSON.parse(localStorage.getItem('commande'))
-         commandes.push({
-            '_id' : article._id, 
-            'name' : article.name,
-            'price': article.price,
-            'description' : article.description,
-            'imageUrl': article.imageUrl,
-            'varnish' : textSelectionne
-            });
-            localStorage.setItem("commande", JSON.stringify(commandes)); 
-               alert('Votre article est ajouté au panier');         
+         let valeurSelectionnee = selectElmt.options[selectElmt.selectedIndex].value;
+         if (valeurSelectionnee != 1) {
+            if (JSON.parse(localStorage.getItem('products')) === null) {
+               let a = []
+               a.push({
+                  'varnish': textSelectionne
+               });
+               localStorage.setItem("verni", JSON.stringify(a));
+               let b = []
+               b.push(
+                  data._id
+               );
+               localStorage.setItem("products", JSON.stringify(b));
+               alert('Votre article est ajouté au panier');
+            } else {
+               let products = JSON.parse(localStorage.getItem('products'))
+               products.push(
+                  data._id
+               );
+               localStorage.setItem("products", JSON.stringify(products));
+               let vernis = JSON.parse(localStorage.getItem('verni'))
+               vernis.push({
+                  'varnish': textSelectionne
+               });
+               localStorage.setItem("verni", JSON.stringify(vernis));
+               alert('Votre article est ajouté au panier');
+            }
+         } else {
+            alert('Il faut choisir un vernis')
          }
-   }else{
-      alert('Il faut choisir un vernis')   
-   } 
-})   
-}  
-
- 
-
-
-produit()
-/* 
-for(i=0; i<products.length; i++){
-   if(products[i] == article._id){
-     alert("L'article est déjà présent dans le panier, voulez-vous quand même l'ajouter")
-      
-   }}
-    if(choix == true){ */
+      })
+   } ajoutPanier(produit)
+}
+produit(urlFurniture)
