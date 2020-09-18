@@ -47,14 +47,14 @@ const produit = async function (url) {
       newOption0.setAttribute("value", "1")
       newOption0.textContent = 'Choisir une couleur de vernis'
       newEssence.appendChild(newOption0)
-      function choixVernis(){
-               for (let i = 0; i < data.varnish.length; i++) {
-         const newOption1 = document.createElement('option');
-         newOption1.setAttribute("value", data.varnish[i]);
-         newOption1.textContent = data.varnish[i];
-         newEssence.appendChild(newOption1);
-      }
-   
+      function choixVernis() {
+         for (let i = 0; i < data.varnish.length; i++) {
+            const newOption1 = document.createElement('option');
+            newOption1.setAttribute("value", data.varnish[i]);
+            newOption1.textContent = data.varnish[i];
+            newEssence.appendChild(newOption1);
+         }
+
 
       }
       choixVernis()

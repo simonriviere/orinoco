@@ -10,7 +10,7 @@ const getIndex = async function (url) {
   response = await fetch(url);
   if (response.ok) {
     let produits = await response.json()
-    function ajoutProduit(data) {
+    function produitPanier(data) {
       //récupération des produits de  l'api
       //Ajout d'une balise div de class row
       const newElt = document.createElement("div");
@@ -92,7 +92,7 @@ const getIndex = async function (url) {
 
       }
     }
-    ajoutProduit(produits)
+    produitPanier(produits)
     function prixTotal() {
       if (produitSelectionne != null) {
         //insertion du prix total dans une div
@@ -255,7 +255,7 @@ const getIndex = async function (url) {
           request.open("post", "http://localhost:3000/api/furniture/order");
           request.setRequestHeader('Content-Type', 'application/json');
           request.send(commande);
-
+    
         }
       })
     }
