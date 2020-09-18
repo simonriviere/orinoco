@@ -1,10 +1,10 @@
 let urlFurniture = 'http://localhost:3000/api/furniture/';
-
+let produits
 const produit = async function (url) {
    let params = new URLSearchParams(document.location.search.substring(1));
    let id = params.get('_id')
    let response = await fetch(url + id)
-   let produit = await response.json()
+   produits = await response.json()
    function description(data) {
       //Ajout d'une balise div de class row
       const newElt = document.createElement("div");
@@ -67,7 +67,6 @@ const produit = async function (url) {
       newCard.appendChild(newEssence);
       newCard.appendChild(newAchat);
    }
-   description(produit)
    function ajoutPanier(data) {
       //Comportement au clique sur 'ajouter au panier'
       let ajoutArticle = document.querySelector('.btnAjout');
@@ -77,35 +76,39 @@ const produit = async function (url) {
 
          let valeurSelectionnee = selectElmt.options[selectElmt.selectedIndex].value;
          if (valeurSelectionnee != 1) {
-            if (JSON.parse(localStorage.getItem('products')) === null) {
+            if (JSON.parse(localStorage.getItem('product')) === null) {
                let a = []
-               a.push({
-                  'varnish': textSelectionne
-               });
-               localStorage.setItem("verni", JSON.stringify(a));
-               let b = []
-               b.push(
+               a.push(
                   data._id
                );
-               localStorage.setItem("products", JSON.stringify(b));
+               localStorage.setItem("product", JSON.stringify(a));
+
+               let b = []
+               b.push(
+                  data._id + textSelectionne
+               )
+               localStorage.setItem("produitSelectionne", JSON.stringify(b));
                alert('Votre article est ajouté au panier');
             } else {
-               let products = JSON.parse(localStorage.getItem('products'))
+               let products = JSON.parse(localStorage.getItem('product'))
                products.push(
                   data._id
                );
-               localStorage.setItem("products", JSON.stringify(products));
-               let vernis = JSON.parse(localStorage.getItem('verni'))
-               vernis.push({
-                  'varnish': textSelectionne
-               });
-               localStorage.setItem("verni", JSON.stringify(vernis));
+               localStorage.setItem("product", JSON.stringify(products));
+               let produitSelectionne = JSON.parse(localStorage.getItem('produitSelectionne'))
+               produitSelectionne.push(
+                  data._id + textSelectionne
+               );
+               localStorage.setItem("produitSelectionne", JSON.stringify(produitSelectionne));
+
                alert('Votre article est ajouté au panier');
             }
          } else {
             alert('Il faut choisir un vernis')
          }
       })
-   } ajoutPanier(produit)
+   }
+   description(produits)
+   ajoutPanier(produits)
 }
 produit(urlFurniture)
