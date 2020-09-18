@@ -1,10 +1,13 @@
 let urlFurniture = 'http://localhost:3000/api/furniture/';
 let produits
 const produit = async function (url) {
+   //récupartion de la valeur du paramètre de l'url dans une variable
    let params = new URLSearchParams(document.location.search.substring(1));
    let id = params.get('_id')
+   //Ajout de cette valeur à notre url
    let response = await fetch(url + id)
    produits = await response.json()
+
    function description(data) {
       //Ajout d'une balise div de class row
       const newElt = document.createElement("div");
@@ -44,12 +47,17 @@ const produit = async function (url) {
       newOption0.setAttribute("value", "1")
       newOption0.textContent = 'Choisir une couleur de vernis'
       newEssence.appendChild(newOption0)
-      for (let i = 0; i < data.varnish.length; i++) {
+      function choixVernis(){
+               for (let i = 0; i < data.varnish.length; i++) {
          const newOption1 = document.createElement('option');
          newOption1.setAttribute("value", data.varnish[i]);
          newOption1.textContent = data.varnish[i];
          newEssence.appendChild(newOption1);
       }
+   
+
+      }
+      choixVernis()
       //ajout au panier
       const newAchat = document.createElement('button');
       newAchat.setAttribute('role', 'button')

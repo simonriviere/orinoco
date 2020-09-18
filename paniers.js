@@ -2,24 +2,29 @@ let urlFurniture = 'http://localhost:3000/api/furniture/';
 //récupération du localStorage de la page description
 let produitSelectionne = JSON.parse(localStorage.getItem('produitSelectionne'));
 let products = JSON.parse(localStorage.getItem('product'));
-let produits
-const getPaniers = async function (url) {
-  let response = await fetch(url);
+
+let response
+
+
+const getIndex = async function (url) {
+  response = await fetch(url);
   if (response.ok) {
-    produits = await response.json()
-    //récupération des produits de  l'api
-    //Ajout d'une balise div de class row
-    const newElt = document.createElement("div");
-    newElt.classList.add("row", "justify-content-center")
-    let elt = document.querySelector(".produitPanier");
-    elt.appendChild(newElt)
-    //création de la variable sum qui sert à calcule le prix total
-    let sum = 0
+    let produits = await response.json()
     function ajoutProduit(data) {
+      //récupération des produits de  l'api
+      //Ajout d'une balise div de class row
+      const newElt = document.createElement("div");
+      newElt.classList.add("row", "justify-content-center")
+      let elt = document.querySelector(".produitPanier");
+      elt.appendChild(newElt)
+      //création de la variable sum qui sert à calcule le prix total
+      let sum = 0
+
       //Si la variables constante est null, il s'affiche un message panier vide
       if (produitSelectionne == null) {
         let panierVide = document.querySelector('.panierVide')
         panierVide.textContent = 'Votre panier est vide !'
+
       }
       //Si la réponse est ok est que produitSelectionne  != null, il s'affiche les produit  
       else {
@@ -31,7 +36,8 @@ const getPaniers = async function (url) {
           };
           ++result[produitSelectionne[i]];
         }
-        for (var key in result) { // boucle on récupère les key(id + vernis) dans le tableau result
+        for (var key in result) {
+          // boucle on récupère les key(id + vernis) dans le tableau result
           for (let i = 0; i < data.length; i++) {
             if (key.substr(0, 24) == data[i]._id) { // si la partie id de la key = l'id présent dans l'api
               //ajout des div pour la structure de la card
@@ -83,6 +89,12 @@ const getPaniers = async function (url) {
             }
           }
         }
+
+      }
+    }
+    ajoutProduit(produits)
+    function prixTotal() {
+      if (produitSelectionne != null) {
         //insertion du prix total dans une div
         //Ajout d'une balise div de class row
         const newPara = document.createElement("div");
@@ -113,12 +125,9 @@ const getPaniers = async function (url) {
         newCard2.appendChild(newPrixTotal);
       }
     }
+    prixTotal()
+    function verificationForm() {
 
-
-    function envoiForm() {
-
-      //vérifications des informations du formulaire
-      let form = document.getElementsByTagName('form')[0];
       //Récupération du prénom
       let formValid = document.getElementById('envoyer');
       let prenom = document.getElementById('lastName');
@@ -199,7 +208,11 @@ const getPaniers = async function (url) {
           missCity.style.color = 'orange';
         }
       }
-
+    }
+    verificationForm()
+    function envoiForm() {
+      //vérifications des informations du formulaire
+      let form = document.getElementsByTagName('form')[0];
       form.addEventListener("submit", function (e) {
         e.preventDefault();
         //récupération des valeurs du formulaire
@@ -229,7 +242,6 @@ const getPaniers = async function (url) {
           let commande = JSON.stringify(contain)
 
           //création de la méthode post une fois le formulaire bien remplit
-
           let request = new XMLHttpRequest();
           request.onreadystatechange = function () {
             if (this.readyState == XMLHttpRequest.DONE && this.status == 201) {
@@ -247,11 +259,17 @@ const getPaniers = async function (url) {
         }
       })
     }
-  }
-  else {
+    envoiForm()
+  } else {
     console.error('Retour du server : ', response.status)
   }
-  ajoutProduit(produits)
-  envoiForm()
+
+
+
 }
-getPaniers(urlFurniture)
+
+
+
+
+getIndex(urlFurniture)
+
