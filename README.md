@@ -1,3 +1,10 @@
+# P5_Riviere_Simon
+
+## Fabriqué avec
+* [Visual Studio] - Editeur de textes
+* [bootstrap] - Structure des pages 
+* [javascript] - exploitation de l'API 
+ 
 # Orinoco #
 
 This is the back end server for Project 5 of the Junior Web Developer path.
@@ -13,3 +20,7 @@ can then run the server with `node server`.
 The server should run on `localhost` with default port `3000`. If the
 server runs on another port for any reason, this is printed to the
 console when the server starts, e.g. `Listening on port 3001`.
+
+
+## Auteurs 
+* **simon RIVIERE** (https://github.com/simonriviere)
