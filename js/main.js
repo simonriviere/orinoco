@@ -3,7 +3,7 @@ let urlFurniture = 'http://localhost:3000/api/furniture/';
 const getIndex = async function (url) {
    let response = await fetch(url)
    if (response.ok) { // si le code d'état de la requête fetch  est de 200 à 299
-      //on parse le contenu de response dans une variable
+      //on parse le contenu de la réponse dans une variable
       let articles = await response.json()
       //function pour l'affichage des produits
       function presentationArticles(data) {

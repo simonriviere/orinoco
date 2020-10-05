@@ -223,7 +223,7 @@ const getIndex = async function (url) {
           alert('Il faut ajouter un produit au panier pour pouvoir commander')
           e.preventDefault
         }
-        // si le formulaire est bien remplit
+        // si le formulaire est bien rempli
         else {
           //création de l'objet utilisé pour le POST         
           let contain = {
@@ -238,7 +238,7 @@ const getIndex = async function (url) {
           };
           let commande = JSON.stringify(contain)
 
-          //création de la méthode post une fois le formulaire bien remplit
+          //création de la méthode post une fois le formulaire bien rempli
           let request = new XMLHttpRequest();
           request.onreadystatechange = function () {
             if (this.readyState == XMLHttpRequest.DONE && this.status == 201) {
